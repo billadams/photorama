@@ -1,6 +1,5 @@
-<?php
-/**
- * User: Bill Adams
- * Date: 5/18/2017
- * Time: 18:13
- */
+<?php include('partials/header.php'); ?>
+
+<?php var_dump($user); ?>
+
+<?php include('partials/footer.php');

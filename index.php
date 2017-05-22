@@ -5,6 +5,7 @@ require('model/database.php');
 require('model/user_db.php');
 require('model/validate.php');
 require('model/user.php');
+require('includes/utilities.php');
 //include_once('includes/functions.php');
 
 session_start();
@@ -33,6 +34,8 @@ if ($action == NULL) {
 
 switch ($action) {
     case 'user_galleries':
+        $user = new User();
+        $user->create("100", "Triton", "billadams1977@gmail.com", "Password01!");
         include('views/user_galleries.php');
     break;
 }

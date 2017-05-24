@@ -1,5 +1,6 @@
 <?php
 class User {
+
     private $user_id;
     private $username;
     private $email;
@@ -9,7 +10,21 @@ class User {
 
     }
 
-    public function create($user_id, $username, $email, $password) {
+    // Creates a user instance fetched from a database.
+    // Doesn't hash the password.
+    public function create_instance($user_id, $username, $email, $password) {
+        $user_instance = new self;
+
+        $user_instance->set_user_id($user_id);
+        $user_instance->set_username($username);
+        $user_instance->set_email($email);
+        $user_instance->set_password($password);
+
+        return $user_instance;
+    }
+
+    // Creates a new user and hashes the password.
+    public function create_new($user_id, $username, $email, $password) {
         $user_instance = new self;
 
         $user_instance->set_user_id($user_id);

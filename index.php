@@ -34,8 +34,8 @@ if ($action == NULL) {
 
 switch ($action) {
     case 'user_galleries':
-        $user = new User();
-        $user = $user->create_new("100", "Triton", "billadams1977@gmail.com", "Password01!");
+        $user = new User("", "Triton", "billadams1977@gmail.com", false, "Password01!");
+//        $user = $user->create_new("100", "Triton", "billadams1977@gmail.com", "Password01!");
         include('views/user_galleries.php');
     break;
 }

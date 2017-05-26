@@ -6,34 +6,41 @@ class User {
     private $email;
     private $password;
 
-    public function __construct() {
-
+    public function __construct($user_id = null, $username, $email, bool $hash_password, $password) {
+        $this->user_id = $user_id;
+        $this->username = $username;
+        $this->email = $email;
+        if ($hash_password == true) {
+            $this->password = Utilites::hash_password($password);
+        } else {
+            $this->password = $password;
+        }
     }
 
     // Creates a user instance fetched from a database.
     // Doesn't hash the password.
-    public function create_instance($user_id, $username, $email, $password) {
-        $user_instance = new self;
-
-        $user_instance->set_user_id($user_id);
-        $user_instance->set_username($username);
-        $user_instance->set_email($email);
-        $user_instance->set_password($password);
-
-        return $user_instance;
-    }
+//    public function create_instance($user_id, $username, $email, $password) {
+//        $user_instance = new self;
+//
+//        $user_instance->set_user_id($user_id);
+//        $user_instance->set_username($username);
+//        $user_instance->set_email($email);
+//        $user_instance->set_password($password);
+//
+//        return $user_instance;
+//    }
 
     // Creates a new user and hashes the password.
-    public function create_new($user_id, $username, $email, $password) {
-        $user_instance = new self;
-
-        $user_instance->set_user_id($user_id);
-        $user_instance->set_username($username);
-        $user_instance->set_email($email);
-        $user_instance->set_password_with_hash($password);
-
-        return $user_instance;
-    }
+//    public function create_new($user_id, $username, $email, $password) {
+//        $user_instance = new self;
+//
+//        $user_instance->set_user_id($user_id);
+//        $user_instance->set_username($username);
+//        $user_instance->set_email($email);
+//        $user_instance->set_password_with_hash($password);
+//
+//        return $user_instance;
+//    }
 
     public function get_user_id()
     {
@@ -75,8 +82,8 @@ class User {
         $this->password = $password;
     }
 
-    public function set_password_with_hash($password)
-    {
-        $this->password = Utilites::hash_password($password);
-    }
+//    public function set_password_with_hash($password)
+//    {
+//        $this->password = Utilites::hash_password($password);
+//    }
 }

@@ -22,17 +22,17 @@ class UserDB {
     {
         $db = Database::DBConnect();
 
-        $username = $user->get_username();
+//        $username = $user->get_username();
         $email = $user->get_email();
         $password = $user->get_password();
 
         $query = 'INSERT INTO users
-                    (username, email, password)
+                    (email, password)
                   VALUES
-                    (:username, :email, :password)';
+                    (:email, :password)';
 
         $statement = $db->prepare($query);
-        $statement->bindValue(':username', $username);
+//        $statement->bindValue(':username', $username);
         $statement->bindValue(':email', $email);
         $statement->bindValue(':password', $password);
         $statement->execute();

@@ -6,9 +6,9 @@ class User {
     private $email;
     private $password;
 
-    public function __construct($user_id = null, $username, $email, bool $hash_password, $password) {
+    public function __construct($user_id = null, $email, bool $hash_password, $password) {
         $this->user_id = $user_id;
-        $this->username = $username;
+//        $this->username = $username;
         $this->email = $email;
         if ($hash_password == true) {
             $this->password = Utilites::hash_password($password);

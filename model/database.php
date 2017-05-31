@@ -1,8 +1,13 @@
 <?php
 class Database {
-    private static $dsn = 'mysql:host=localhost;port=3307;dbname=photorama';
-    private static $db_username = 'root';
-    private static $db_password = '';
+//    private static $dsn = 'mysql:host=localhost;port=3307;dbname=photorama';
+//    private static $db_username = 'root';
+//    private static $db_password = '';
+//    private static $db;
+
+    private static $dsn = DB_DSN;
+    private static $db_username = DB_USERNAME;
+    private static $db_password = DB_PASSWORD;
     private static $db;
 
     private function __construct() {}
@@ -14,7 +19,7 @@ class Database {
                 self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e) {
                 $error_message = $e->getMessage();
-                include('../views/database_error.php');
+                include('views/database_error.php');
                 exit();
             }
         }

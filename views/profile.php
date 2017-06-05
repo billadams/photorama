@@ -1,6 +1,12 @@
-<?php
-/**
- * User: Bill Adams
- * Date: 5/18/2017
- * Time: 18:30
- */
+<?php include('partials/header.php'); ?>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-1">
+            <img src="<?php echo $user->get_profile_image() ?>">
+        </div>
+    </div>
+
+</div> <!-- /container -->
+
+<?php include('partials/header.php'); ?>

@@ -2,8 +2,24 @@
 body {
     padding-top: 40px;
     padding-bottom: 40px;
-    background-color: #eee;
+    /*background-color: #eee;*/
 }
+
+/*----- Register/Login Styles -----*/
+/* General sizing */
+/*ul.dropdown-lr {*/
+    /*width: 300px;*/
+/*}*/
+
+/*!* mobile fix *!*/
+/*@media (max-width: 768px) {*/
+    /*.dropdown-lr h3 {*/
+        /*color: #eee;*/
+    /*}*/
+    /*.dropdown-lr label {*/
+        /*color: #eee;*/
+    /*}*/
+/*}*/
 
 .form-signin {
     max-width: 330px;

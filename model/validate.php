@@ -1,30 +1,28 @@
 <?php
 class Validate {
-    public static function validate_user_registration($first_name, $last_name, $email, $username)
+    public static function validate_user_registration($email, $username, $password, $password_confirm)
     {
         $username_exists = false;
+        $errors = array();
 
         $row_count = UserDB::check_unique_username($username);
         if ($row_count === 1) {
             $username_exists = true;
         }
-        $errors = array();
 
-        if ($first_name === null || $first_name === '') {
-            $error_message = 'Please enter a first name.';
-            $errors[] = $error_message;
-        }
-        if ($last_name === null || $last_name === '') {
-            $error_message = 'Please enter a last name.';
-            $errors[] = $error_message;
-        }
         if ($email === false || $email === '') {
             $error_message = 'Please enter a valid email address.';
             $errors[] = $error_message;
         }
-        //add username rules of must begin with letter and 4 to 20 chars use preg_match
+
+        // Add username rules of must begin with letter and 4 to 20 chars use preg_match
         if ($username === null || $username === '' || $username_exists === true) {
             $error_message = 'Please enter a unique user name.';
+            $errors[] = $error_message;
+        }
+
+        if ($password !== $password_confirm) {
+            $error_message = "Passwords do not match.";
             $errors[] = $error_message;
         }
 
@@ -96,7 +94,7 @@ class Validate {
         return $errors;
     }
 
-    public static function validate_new_user_name($username)
+    public static function validate_new_username($username)
     {
         $errors = array();
         $pattern = "/^[A-Z a-z]{1}[A-Z a-z 0-9!\$_.]{3,19}$/";
@@ -116,11 +114,14 @@ class Validate {
         $errors = array();
         $password_matches = password_verify($password, $user->get_password());
 
-        if ($username === $user->get_username() && $password_matches) {
-            return $errors;
+        if ($username !== $user->get_username()) {
+            $message = "Username not recognized";
+            $errors[] = $message;
         }
-        $message = "Invalid login information";
-        $errors[] = $message;
+        if (!$password_matches) {
+            $message = "Password not recognized";
+            $errors[] = $message;
+        }
 
         return $errors;
     }

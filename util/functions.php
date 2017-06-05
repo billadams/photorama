@@ -1,5 +1,5 @@
 <?php
-class Utilites {
+class Utilities {
     public static function hash_password($password)
     {
         $options = [

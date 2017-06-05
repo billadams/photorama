@@ -7,15 +7,19 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="<?php echo $app_path ?>favicon.ico">
 
-    <title>Starter Template for Bootstrap</title>
+    <title>Photorama : Home</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css/sticky-footer-navbar.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
+
+<!--    <script src="https://code.jquery.com/jquery-3.2.1.min.js"-->
+<!--            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="-->
+<!--            crossorigin="anonymous"></script>-->
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <!--    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
@@ -46,19 +50,18 @@
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <?php if (isset($_SESSION['user_id'])) : ?>
+                    <li><a href="index.php?action=view_admin_profile&id=<?php echo $_SESSION['user_id']; ?>">My Profile</a></li>
+                <?php endif; ?>
             </ul>
-            <form action="index.php" method="post" class="navbar-form navbar-right">
-                <input type="hidden" name="action" value="login_attempt">
-                <div class="form-group">
-                    <input type="text" name="email" value="<?php //echo htmlspecialchars($email); ?>" placeholder="Email" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="password" name="password" value="<?php //echo htmlspecialchars($password); ?>" placeholder="Password" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-success">Sign in</button>
-            </form>
-            <ul>
-                <li><a class="navbar-right" href="index.php?action=register">Register</a></li>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="index.php?action=show_register_form">Register</a></li>
+                <?php if (!isset($_SESSION['user_id'])) : ?>
+                    <li><a href="index.php?action=show_login_form">Login</a></li>
+                <?php else : ?>
+                    <li><a href="index.php?action=logout">Logout</a></li>
+                <?php endif; ?>
+<!--                <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>-->
             </ul>
         </div><!--/.nav-collapse -->
     </div>

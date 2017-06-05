@@ -5,10 +5,12 @@
     <form action="index.php" method="post" class="form-signin">
         <input type="hidden" name="action" value="login">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <?php if (!empty($errors)) :
-            foreach ($errors as $error) : ?>
-                <p class="error"><?php echo htmlspecialchars($error); ?></p>
-            <?php endforeach; ?>
+        <?php if (!empty($errors)) : ?>
+            <div class="alert alert-warning">
+                <?php foreach ($errors as $error) : ?>
+                    <p><?php echo htmlspecialchars($error); ?></p>
+                <?php endforeach; ?>
+            </div>
         <?php endif; ?>
         <label for="inputUsername" class="sr-only">Email address</label>
         <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus name="username" value="<?php echo htmlspecialchars($username); ?>">

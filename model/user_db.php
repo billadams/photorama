@@ -97,21 +97,19 @@ class UserDB {
         return $row;
     }
 
-    public static function get_all_users($user_id = NULL)
+    public static function get_all_users()
     {
         $db = Database::DBConnect();
 
         $query = 'SELECT *
-                  FROM users
-                  WHERE user_id != :user_id';
+                  FROM users';
 
         $statement = $db->prepare($query);
-        $statement->bindValue(':username', $user_id);
         $statement->execute();
-        $rows = $statement->fetchAll();
+        $users = $statement->fetchAll();
         $statement->closeCursor();
 
-        return $rows;
+        return $users;
     }
 
     public static function update_profile_image($image_path, $user_id)

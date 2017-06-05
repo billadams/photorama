@@ -11,6 +11,8 @@
 
     <title>Photorama : Home</title>
 
+    <link href="css/cssreset.css" rel="stylesheet">
+
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
@@ -47,16 +49,14 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li class="active"><a href=".">Home</a></li>
                 <?php if (isset($_SESSION['user_id'])) : ?>
                     <li><a href="index.php?action=view_admin_profile&id=<?php echo $_SESSION['user_id']; ?>">My Profile</a></li>
                 <?php endif; ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="index.php?action=show_register_form">Register</a></li>
                 <?php if (!isset($_SESSION['user_id'])) : ?>
+                    <li><a href="index.php?action=show_register_form">Register</a></li>
                     <li><a href="index.php?action=show_login_form">Login</a></li>
                 <?php else : ?>
                     <li><a href="index.php?action=logout">Logout</a></li>

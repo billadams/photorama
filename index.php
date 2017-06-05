@@ -38,12 +38,10 @@ if ($action == NULL) {
 
 switch ($action) {
     case 'category_view':
-        $row = UserDB::get_user_by_id(14);
-        $user = new User($row['user_id'], $row['username'], $row['email'], false, $row['password'], $row['profile_image']);
+        $users = UserDB::get_all_users();
+//        $user = new User($row['user_id'], $row['username'], $row['email'], false, $row['password'], $row['profile_image']);
 
-//        $user = new User("", "Triton", "billadams1977@gmail.com", false, "Password01!");
-//        $user = $user->create_new("100", "Triton", "billadams1977@gmail.com", "Password01!");
-        include('views/category_view.php');
+        include('views/galleries_view.php');
     break;
     case 'show_register_form':
         include('views/register.php');
@@ -83,6 +81,11 @@ switch ($action) {
 
             // Instantiate user object
             $user = new User($row['user_id'], $row['username'], $row['email'], false, $row['password'], $row['profile_image']);
+
+            $motocross_images = CategoryDB::get_user_images_by_category(3, $user->get_user_id());
+            $colorado_images = CategoryDB::get_user_images_by_category(2, $user->get_user_id());
+            $disney_images = CategoryDB::get_user_images_by_category(1, $user->get_user_id());
+
             // Store the user_id in a session so we can log them in.
             $_SESSION['user_id'] = $user->get_user_id();
             include('views/profile_admin.php');
@@ -96,15 +99,22 @@ switch ($action) {
         $user = new User($row['user_id'], $row['username'], $row['email'], false, $row['password'], $row['profile_image']);
 
 //        $user_images = UserDB::get_category_images_by_user($user_id);
-        $user_image_library = array();
-        $categories = CategoryDB::get_all_categories();
-        foreach ($categories as $category) {
-            $user_image_library[] = $category;
-            $category_images = CategoryDB::get_user_images_by_category($category['category_id'], $user_id);
-            $user_image_library[$category][] = $category_images;
-        }
+//        $user_image_library = array();
+//        $categories = CategoryDB::get_all_categories();
+//        foreach ($categories as $category) {
+//            $user_image_library = ['category' => $category];
+//            $user_image_library[] = $category;
+//            $category_images = CategoryDB::get_user_images_by_category($category['category_id'], $user_id);
+//            $user_image_library[][] = $category_images;
+//        }
 
-            include('views/profile_admin.php');
+        // Hard code the categories for now until I can find a way to pull the category
+        // and put the the user images into the category.
+        $motocross_images = CategoryDB::get_user_images_by_category(3, $user_id);
+        $colorado_images = CategoryDB::get_user_images_by_category(2, $user_id);
+        $disney_images = CategoryDB::get_user_images_by_category(1, $user_id);
+
+        include('views/profile_admin.php');
         break;
     case 'login':
         $username = filter_input(INPUT_POST, 'username');
@@ -114,6 +124,10 @@ switch ($action) {
         $user = new User($row['user_id'], $row['username'], $row['email'], false, $row['password'], $row['profile_image']);
 
         $errors = Validate::validate_login($username, $password, $user);
+
+        $motocross_images = CategoryDB::get_user_images_by_category(3, $user->get_user_id());
+        $colorado_images = CategoryDB::get_user_images_by_category(2, $user->get_user_id());
+        $disney_images = CategoryDB::get_user_images_by_category(1, $user->get_user_id());
 
         if (!$errors) {
             $_SESSION['user_id'] = $user->get_user_id();
@@ -165,15 +179,19 @@ switch ($action) {
                 $user_id = $_SESSION['user_id'];
                 UserDB::update_profile_image($image_path, $user_id);
 
-
+                $user_id = $_SESSION['user_id'];
                 $row = UserDB::get_user_by_id($user_id);
                 $user = new User($row['user_id'], $row['username'], $row['email'], false, $row['password'], $row['profile_image']);
+
+                $motocross_images = CategoryDB::get_user_images_by_category(3, $user_id);
+                $colorado_images = CategoryDB::get_user_images_by_category(2, $user_id);
+                $disney_images = CategoryDB::get_user_images_by_category(1, $user_id);
 
                 include('views/profile_admin.php');
 //                echo "Success";
             } else {
 //                var_dump($errors);
-                include 'views/upload_error.php';
+                include ('views/upload_error.php');
             }
         }
         break;

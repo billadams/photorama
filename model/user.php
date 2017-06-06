@@ -7,7 +7,7 @@ class User {
     private $password;
     private $profile_image;
 
-    public function __construct($user_id = null, $username, $email, bool $hash_password = false, $password, $profile_image = null) {
+    public function __construct($user_id = null, $username, $email, $hash_password = false, $password, $profile_image = null) {
         $this->user_id = $user_id;
         $this->username = $username;
         $this->email = $email;

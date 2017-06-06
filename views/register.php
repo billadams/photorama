@@ -5,10 +5,19 @@
     <form action="index.php" method="post" id="form-register" class="form-signin">
         <input type="hidden" name="action" value="register">
         <h2 class="form-signin-heading">Create new account</h2>
+        <p>Passwords must be at least 10 characters long and have:</p>
+        <ul>
+            <li>at least 1 uppercase character</li>
+            <li>at least 1 lowercase character</li>
+            <li>at least 2 digits</li>
+            <li>at least 1 special character</li>
+        </ul>
         <?php if (!empty($errors)) : ?>
             <div class="alert alert-warning">
                 <?php foreach ($errors as $error) : ?>
-                    <p><?php echo htmlspecialchars($error); ?></p>
+                    <ul>
+                        <li><?php echo htmlspecialchars($error); ?></li>
+                    </ul>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>

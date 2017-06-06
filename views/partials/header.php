@@ -7,7 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="<?php echo $app_path ?>favicon.ico">
+    <link rel="icon" href="favicon.ico">
 
     <title>Photorama : Home</title>
 
@@ -18,10 +18,6 @@
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css/sticky-footer-navbar.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
-
-<!--    <script src="https://code.jquery.com/jquery-3.2.1.min.js"-->
-<!--            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="-->
-<!--            crossorigin="anonymous"></script>-->
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <!--    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
@@ -45,13 +41,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href=".">Photorama</a>
+            <a class="navbar-brand" href="."></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href=".">Home</a></li>
+                <li><a href=".">Home</a></li>
                 <?php if (isset($_SESSION['user_id'])) : ?>
-                    <li><a href="index.php?action=view_admin_profile&id=<?php echo $_SESSION['user_id']; ?>">My Profile</a></li>
+                    <li><a href="index.php?action=view_admin_profile&id=<?php echo htmlspecialchars($_SESSION['user_id']); ?>">My Profile</a></li>
                 <?php endif; ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -61,7 +57,6 @@
                 <?php else : ?>
                     <li><a href="index.php?action=logout">Logout</a></li>
                 <?php endif; ?>
-<!--                <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>-->
             </ul>
         </div><!--/.nav-collapse -->
     </div>

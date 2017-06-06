@@ -18,6 +18,23 @@ class UserDB {
         return $row_count;
     }
 
+    public static function check_unique_email($email)
+    {
+        $db = Database::DBConnect();
+
+        $query = 'SELECT *
+                  FROM users
+                  WHERE email = :email';
+
+        $statement = $db->prepare($query);
+        $statement->bindValue(':email', $email);
+        $statement->execute();
+        $row_count = $statement->rowCount();
+        $statement->closeCursor();
+
+        return $row_count;
+    }
+
     public static function add_new_user($username, $email, $password)
     {
         $db = Database::DBConnect();

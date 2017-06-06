@@ -1,9 +1,21 @@
+/***** GENERAL STYLES ******/
+li {
+    list-style: disc;
+    margin-left: 2em;
+}
 /***** Bootstrap Sign-in form *****/
 body {
     padding-top: 40px;
     padding-bottom: 40px;
     /*background-color: #eee;*/
 }
+
+/***** NAVBAR STYLES *****/
+.navbar-brand {
+    background: url(../images/photorama_logo.jpg) no-repeat;
+    width: 66px;
+}
+
 
 /***** GALLERY HOME STYLES ******/
 .gallery_snapshot {
@@ -13,25 +25,15 @@ body {
 }
 
 /***** ADMIN PROFILE STYLES ******/
+#profile_controls {
+    float: right;
+}
 input[type="file"] {
     margin-bottom: 10px;
 }
-/*----- Register/Login Styles -----*/
-/* General sizing */
-/*ul.dropdown-lr {*/
-    /*width: 300px;*/
-/*}*/
 
-/*!* mobile fix *!*/
-/*@media (max-width: 768px) {*/
-    /*.dropdown-lr h3 {*/
-        /*color: #eee;*/
-    /*}*/
-    /*.dropdown-lr label {*/
-        /*color: #eee;*/
-    /*}*/
-/*}*/
 
+/***** REGISTER/SIGN IN STYLES *****/
 .form-signin {
     max-width: 330px;
     padding: 15px;
@@ -85,7 +87,9 @@ input[type="file"] {
 }
 .profile_gallery li {
     float: left;
+    margin-left: 0;
     margin-right: 10px;
+    list-style: none;
 }
 .profile_gallery figcaption {
     display: none;

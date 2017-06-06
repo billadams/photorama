@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-1">
-            <img src="<?php echo $user->get_profile_image() ?>">
+            <img src="<?php echo htmlspecialchars($user->get_profile_image()); ?>">
         </div>
     </div>
 

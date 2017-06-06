@@ -8,7 +8,9 @@
         <?php if (!empty($errors)) : ?>
             <div class="alert alert-warning">
                 <?php foreach ($errors as $error) : ?>
-                    <p><?php echo htmlspecialchars($error); ?></p>
+                    <ul>
+                        <li><?php echo htmlspecialchars($error); ?></li>
+                    </ul>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>

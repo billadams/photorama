@@ -4,7 +4,7 @@
     <div class="col-md-4 col-md-offset-4">
         <h2>Image Upload Error</h2>
         <?php foreach($errors as $error) : ?>
-            <p class="alert alert-warning"><?php echo $error; ?></p>
+            <p class="alert alert-danger"><?php echo htmlspecialchars($error); ?></p>
         <?php endforeach; ?>
         <form action="index.php" method="post">
             <input type="hidden" name="action" value="view_admin_profile">

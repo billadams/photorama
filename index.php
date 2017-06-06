@@ -6,12 +6,13 @@ require_once('util/functions.php');
 require_once('model/database.php');
 require_once('model/user_db.php');
 require_once('model/category_db.php');
+require_once('model/image_db.php');
 require_once('model/validate.php');
 require_once('model/user.php');
 
 session_start();
 
-//set default value of variables for initial page load
+// Set default value of variables for initial page load
 if (!isset($user_id)) {
     $user_id = '';
 }
@@ -39,7 +40,6 @@ if ($action == NULL) {
 switch ($action) {
     case 'category_view':
         $users = UserDB::get_all_users();
-//        $user = new User($row['user_id'], $row['username'], $row['email'], false, $row['password'], $row['profile_image']);
 
         include('views/galleries_view.php');
     break;
@@ -55,29 +55,16 @@ switch ($action) {
         $password = filter_input(INPUT_POST, 'password');
         $password_confirm = filter_input(INPUT_POST, 'confirm_password');
 
-        $errors_user_registration = Validate::validate_user_registration($email, $username, $password, $password_confirm);
-////        $errors_topology = Validate::validate_check_password_topologies($password);
-////        $errors_password_rules = Validate::validate_password_rules($password);
         $errors_new_username = Validate::validate_new_username($username);
-        $errors = array_merge($errors_user_registration, $errors_new_username);
+        $errors_user_registration = Validate::validate_user_registration($email, $username, $password, $password_confirm);
+        $errors_topology = Validate::validate_check_password_topologies($password);
+        $errors_password_rules = Validate::validate_password_rules($password);
+        $errors = array_merge($errors_new_username, $errors_user_registration, $errors_topology, $errors_password_rules);
 
         if (!$errors) {
             // Create the new user in the database and return the new user
             $inserted_user_id = UserDB::add_new_user($username, $email, Utilities::hash_password($password));
             $row = UserDB::get_user_by_id($inserted_user_id);
-
-            // Send the newly registered user and email welcoming them to Stickman social network.
-//            $subject = 'Stickman registration confirmation';
-//            $message = 'Registration successful for ' . $first_name . ' ' . $last_name . '.' . PHP_EOL;
-//            $message .= 'Your username is ' . $username . '.';
-//            $headers = 'From: webmaster@stickman1.com' . "\r\n" .
-//                    'Reply-To: webmaster@stickman1.com' . "\r\n";
-//            $mail_success = false;
-//            if (mail($email, $subject, $message, $headers)) {
-//                $mail_success = true;
-//            } else {
-//                $message = 'Registration was unsuccessful, please try again.';
-//            }
 
             // Instantiate user object
             $user = new User($row['user_id'], $row['username'], $row['email'], false, $row['password'], $row['profile_image']);
@@ -85,6 +72,9 @@ switch ($action) {
             $motocross_images = CategoryDB::get_user_images_by_category(3, $user->get_user_id());
             $colorado_images = CategoryDB::get_user_images_by_category(2, $user->get_user_id());
             $disney_images = CategoryDB::get_user_images_by_category(1, $user->get_user_id());
+
+            $num_images = ImageDB::count_total_user_images($user->get_user_id());
+            $num_categories = ImageDB::count_total_user_categories($user->get_user_id());
 
             // Store the user_id in a session so we can log them in.
             $_SESSION['user_id'] = $user->get_user_id();
@@ -98,23 +88,32 @@ switch ($action) {
         $row = UserDB::get_user_by_id($user_id);
         $user = new User($row['user_id'], $row['username'], $row['email'], false, $row['password'], $row['profile_image']);
 
-//        $user_images = UserDB::get_category_images_by_user($user_id);
-//        $user_image_library = array();
-//        $categories = CategoryDB::get_all_categories();
-//        foreach ($categories as $category) {
-//            $user_image_library = ['category' => $category];
-//            $user_image_library[] = $category;
-//            $category_images = CategoryDB::get_user_images_by_category($category['category_id'], $user_id);
-//            $user_image_library[][] = $category_images;
-//        }
-
         // Hard code the categories for now until I can find a way to pull the category
         // and put the the user images into the category.
-        $motocross_images = CategoryDB::get_user_images_by_category(3, $user_id);
-        $colorado_images = CategoryDB::get_user_images_by_category(2, $user_id);
-        $disney_images = CategoryDB::get_user_images_by_category(1, $user_id);
+        $motocross_images = CategoryDB::get_user_images_by_category(3, $user->get_user_id());
+        $colorado_images = CategoryDB::get_user_images_by_category(2, $user->get_user_id());
+        $disney_images = CategoryDB::get_user_images_by_category(1, $user->get_user_id());
+
+        $num_images = ImageDB::count_total_user_images($user_id);
+        $num_categories = ImageDB::count_total_user_categories($user->get_user_id());
 
         include('views/profile_admin.php');
+        break;
+    case 'view_profile':
+        $user_id = filter_input(INPUT_GET, 'user_id', FILTER_VALIDATE_INT);
+
+        // Get the profile the user selected.
+        $row = UserDB::get_user_by_id($user_id);
+        $user = new User($row['user_id'], $row['username'], $row['email'], false, $row['password'], $row['profile_image']);
+
+        $motocross_images = CategoryDB::get_user_images_by_category(3, $user->get_user_id());
+        $colorado_images = CategoryDB::get_user_images_by_category(2, $user->get_user_id());
+        $disney_images = CategoryDB::get_user_images_by_category(1, $user->get_user_id());
+
+        $num_images = ImageDB::count_total_user_images($user->get_user_id());
+        $num_categories = ImageDB::count_total_user_categories($user->get_user_id());
+
+        include('views/profile_public.php');
         break;
     case 'login':
         $username = filter_input(INPUT_POST, 'username');
@@ -128,6 +127,9 @@ switch ($action) {
         $motocross_images = CategoryDB::get_user_images_by_category(3, $user->get_user_id());
         $colorado_images = CategoryDB::get_user_images_by_category(2, $user->get_user_id());
         $disney_images = CategoryDB::get_user_images_by_category(1, $user->get_user_id());
+
+        $num_images = ImageDB::count_total_user_images($user->get_user_id());
+        $num_categories = ImageDB::count_total_user_categories($user->get_user_id());
 
         if (!$errors) {
             $_SESSION['user_id'] = $user->get_user_id();
@@ -150,9 +152,6 @@ switch ($action) {
             $file_type = $_FILES['image']['type'];
             $temp = explode('.', $_FILES['image']['name']);
             $file_extension = end($temp);
-//            $file_ext = strtolower($temp);
-
-//            var_dump($_FILES);
 
             $extensions = array("jpeg", "jpg", "png", "gif");
             $upload_dir = "/images/";
@@ -183,14 +182,15 @@ switch ($action) {
                 $row = UserDB::get_user_by_id($user_id);
                 $user = new User($row['user_id'], $row['username'], $row['email'], false, $row['password'], $row['profile_image']);
 
-                $motocross_images = CategoryDB::get_user_images_by_category(3, $user_id);
-                $colorado_images = CategoryDB::get_user_images_by_category(2, $user_id);
-                $disney_images = CategoryDB::get_user_images_by_category(1, $user_id);
+                $motocross_images = CategoryDB::get_user_images_by_category(3, $user->get_user_id());
+                $colorado_images = CategoryDB::get_user_images_by_category(2, $user->get_user_id());
+                $disney_images = CategoryDB::get_user_images_by_category(1, $user->get_user_id());
+
+                $num_images = ImageDB::count_total_user_images($user->get_user_id());
+                $num_categories = ImageDB::count_total_user_categories($user->get_user_id());
 
                 include('views/profile_admin.php');
-//                echo "Success";
             } else {
-//                var_dump($errors);
                 include ('views/upload_error.php');
             }
         }

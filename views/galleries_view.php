@@ -5,14 +5,13 @@
 
         <?php foreach ($users as $user) : ?>
 
-            <div class="row col-md-8 col-md-offset-2 gallery_snapshot">
+            <div class="row col-md-6 col-md-offset-3 gallery_snapshot">
                 <div class="col-md-4">
-                    <img src="<?php echo $user['profile_image']; ?>">
+                    <img src="<?php echo htmlspecialchars($user['profile_image']); ?>">
                 </div>
-                <div class="col-md-8">
-                    <h1><?php echo $user['username']; ?></h1>
-                    <p>Number of galleries: WIP</p>
-                    <p>Number of images: WIP</p>
+                <div class="col-lg-8">
+                    <h1><?php echo htmlspecialchars($user['username']); ?></h1>
+                    <p><a class="btn btn-default btn-primary" href="index.php?action=view_profile&user_id=<?php echo htmlspecialchars($user['user_id']); ?>">View Profile</a></p>
                 </div>
             </div>
 

@@ -3,21 +3,36 @@ class Validate {
     public static function validate_user_registration($email, $username, $password, $password_confirm)
     {
         $username_exists = false;
+        $email_exists = false;
         $errors = array();
 
-        $row_count = UserDB::check_unique_username($username);
-        if ($row_count === 1) {
+        $username_row_count = UserDB::check_unique_username($username);
+        if ($username_row_count === 1) {
             $username_exists = true;
+        }
+
+        $email_row_count = UserDB::check_unique_email($email);
+        if ($email_row_count ===1) {
+            $email_exists = true;
+        }
+
+        if ($username_exists === true) {
+            $error_message = 'Our records indicate that the username provided is already in use. Please choose a different username.';
+            $errors[] = $error_message;
+        }
+
+        if ($username === null || $username === '') {
+            $error_message = 'Please enter a user name.';
+            $errors[] = $error_message;
+        }
+
+        if ($email_exists === true) {
+            $error_message = 'Our records indicate that the email provided is already in use. Please choose a different email address.';
+            $errors[] = $error_message;
         }
 
         if ($email === false || $email === '') {
             $error_message = 'Please enter a valid email address.';
-            $errors[] = $error_message;
-        }
-
-        // Add username rules of must begin with letter and 4 to 20 chars use preg_match
-        if ($username === null || $username === '' || $username_exists === true) {
-            $error_message = 'Please enter a unique user name.';
             $errors[] = $error_message;
         }
 
@@ -65,7 +80,6 @@ class Validate {
     {
         $errors = array();
 
-        //add regex topologies use preg_match
         $patterns = array("/^[A-Z]{1}[a-z]{7}[0-9]{2}$/", "/^[A-Z]{1}[a-z]{5}[0-9]{4}$/", "/^[A-Z]{1}[a-z]{6}[0-9]{4}$/",
             "/^[A-Z]{1}[a-z]{7}[0-9]{1}[-!$%^&*()_+|~=`{}\[\]:\";'<>?,.\/]$/", "/^[A-Z]{1}[a-z]{7}[0-9]{4}$/");
 
@@ -96,6 +110,7 @@ class Validate {
 
     public static function validate_new_username($username)
     {
+        // Username must begin with a letter and be between 4 to 20 characters
         $errors = array();
         $pattern = "/^[A-Z a-z]{1}[A-Z a-z 0-9!\$_.]{3,19}$/";
 
@@ -103,7 +118,7 @@ class Validate {
         {
             return $errors;
         }
-        $message = "Incorrect username";
+        $message = "Username must begin with a letter and be between 4 and 20 characters.";
         $errors[] = $message;
 
         return $errors;

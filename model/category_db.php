@@ -21,7 +21,7 @@ class CategoryDB {
         $db = Database::DBConnect();
 
         $query = 'SELECT categories.category_id, category_name, 
-                         image_id, image_path, caption
+                         image_id, image_path, caption, alt_text
                  FROM users
                     JOIN images ON users.user_id = images.user_id
                     JOIN categories ON images.category_id = categories.category_id

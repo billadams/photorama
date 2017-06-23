@@ -11,13 +11,13 @@
 
     <title>Photorama : Home</title>
 
-    <link href="css/cssreset.css" rel="stylesheet">
+    <link href="<?php echo $app_path; ?>css/cssreset.css" rel="stylesheet">
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="css/sticky-footer-navbar.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
+    <link href="<?php echo $app_path; ?>css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $app_path; ?>css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="<?php echo $app_path; ?>css/sticky-footer-navbar.css" rel="stylesheet">
+    <link href="<?php echo $app_path; ?>css/main.css" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <!--    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->

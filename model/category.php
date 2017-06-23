@@ -2,17 +2,13 @@
 class Category {
     private $category_id;
     private $category_name;
-    private $user_id;
+    private $category_images = array();
 
-    public function __construct($category_id = "", $category_name, $user_id) {
+    public function __construct($category_id = "", $category_name, $category_images) {
         $this->category_id = $category_id;
         $this->category_name = $category_name;
-        $this->user_id = $user_id;
+        $this->category_images[] = $category_images;
     }
-
-//    public function create_category_instance($category_id, $category_name, $user_id) {
-//        $category_instance = new self($category_id, $category_name, $user_id);
-//    }
 
     public function get_category_id() {
         return $this->category_id;
@@ -27,14 +23,14 @@ class Category {
     }
 
     public function set_category_name($category_name) {
-        $this->category_name = $category_name;
+	    $this->category_name = $category_name;
     }
 
-    public function get_user_id() {
-        return $this->user_id;
-    }
+	public function get_category_images() {
+		return $this->category_images;
+	}
 
-    public function set_user_id($user_id) {
-        $this->user_id = $user_id;
-    }
+	public function set_category_images($category_images) {
+		$this->category_images[] = $category_images;
+	}
 }

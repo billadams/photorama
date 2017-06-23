@@ -4,13 +4,15 @@ class Image {
     private $image_id;
     private $image_path;
     private $caption;
+    private $alt_text;
     private $category_id;
     private $user_id;
 
-    public function __construct($image_id, $image_path, $caption, $category_id, $user_id) {
+    public function __construct($image_id, $image_path, $caption, $alt_text, $category_id, $user_id) {
         $this->image_id = $image_id;
         $this->image_path = $image_path;
         $this->caption = $caption;
+        $this->alt_text = $alt_text;
         $this->category_id = $category_id;
         $this->user_id = $user_id;
     }
@@ -38,6 +40,14 @@ class Image {
     public function set_image_caption($caption) {
         $this->caption = $caption;
     }
+
+	public function get_image_alt_text() {
+		return $this->alt_text;
+	}
+
+	public function set_image_alt_text($alt_text) {
+		$this->alt_text = $alt_text;
+	}
 
     public function get_category_id() {
         return $this->category_id;

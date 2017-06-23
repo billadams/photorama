@@ -1,6 +1,24 @@
 <?php
 class ImageDB {
 
+	public static function add_new_image($image_path, $category_id, $caption, $alt_text, $user_id) {
+		$db = Database::DBConnect();
+
+		$query = 'INSERT INTO images
+				  	(image_path, category_id, caption, alt_text, user_id)
+				  VALUES
+				  	(:image_path, :category_id, :caption, :alt_text, :user_id)';
+
+		$statement = $db->prepare($query);
+		$statement->bindValue(':image_path', $image_path);
+		$statement->bindValue(':category_id', $category_id);
+		$statement->bindValue(':caption', $caption);
+		$statement->bindValue(':alt_text', $alt_text);
+		$statement->bindValue(':user_id', $user_id);
+		$statement->execute();
+		$statement->closeCursor();
+	}
+
     public static function get_images_by_user_id($user_id) {
         $db = Database::DBConnect();
 

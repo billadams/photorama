@@ -20,77 +20,35 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <h3>Disney World</h3>
-                <ul class="profile_gallery">
-                    <?php if (empty($disney_images)) : ?>
-                        <p>No images in this gallery yet...</p>
-                    <?php else :
-                        foreach ($disney_images as $disney_image) :
-                            ?>
-                            <li>
-                                <figure>
-                                    <img src="<?php echo htmlspecialchars($disney_image['image_path']); ?>" alt="User Image" width="150px" height="150px">
-                                    <figcaption><?php echo htmlspecialchars($disney_image['caption']); ?></figcaption>
-                                </figure>
-                            </li>
-                            <?php
-                        endforeach;
-                    endif;
-                    ?>
-                </ul>
-            </div>
-        </div>
-        <hr>
+	    <?php //evar_dump($category_images); ?>
+	    <?php //var_dump($category_objects); ?>
 
-        <div class="row">
-            <div class="col-md-12">
-                <h3>Colorado</h3>
-                <ul class="profile_gallery">
-                    <?php if (empty($colorado_images)) : ?>
-                        <p>No images in this gallery yet...</p>
-                    <?php else :
-                        foreach ($colorado_images as $colorado_image) :
-                            ?>
-                            <li>
-                                <figure>
-                                    <img src="<?php echo htmlspecialchars($colorado_image['image_path']); ?>" alt="User Image" width="150px" height="150px">
-                                    <figcaption><?php echo htmlspecialchars($colorado_image['caption']); ?></figcaption>
-                                </figure>
-                            </li>
-                            <?php
-                        endforeach;
-                    endif;
-                    ?>
-                </ul>
+	    <?php foreach ($category_objects as $category_object) : ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3><?php echo htmlspecialchars($category_object->get_category_name()); ?></h3>
+                    <ul class="profile_gallery">
+					    <?php foreach ($category_object->get_category_images() as $category_image ) : ?>
+						    <?php if (empty($category_image)) : ?>
+                                <p>No images in this gallery yet...</p>
+						    <?php else : ?>
+							    <?php //var_dump($category_image); ?>
+							    <?php for ($i = 0; $i < count($category_image); $i++) : ?>
+                                    <li>
+                                        <figure>
+                                            <img src="<?php echo htmlspecialchars($category_image[$i]['image_path']); ?>" alt="User Image" width="150px" height="150px">
+                                            <figcaption><?php echo htmlspecialchars($category_image[$i]['caption']); ?></figcaption>
+                                        </figure>
+                                    </li>
+							    <?php endfor; ?>
+						    <?php endif; ?>
+					    <?php endforeach; ?>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <hr>
-
-        <div class="row">
-            <div class="col-md-12">
-                <h3>Motocross</h3>
-                <ul class="profile_gallery">
-                    <?php if (empty($motocross_images)) : ?>
-                        <p>No images in this gallery yet...</p>
-                    <?php else :
-                        foreach ($motocross_images as $motocross_image) :
-                            ?>
-                            <li>
-                                <figure>
-                                    <img src="<?php echo htmlspecialchars($motocross_image['image_path']); ?>" alt="User Image" width="150px" height="150px">
-                                    <figcaption><?php echo htmlspecialchars($motocross_image['caption']); ?></figcaption>
-                                </figure>
-                            </li>
-                            <?php
-                        endforeach;
-                    endif;
-                    ?>
-                </ul>
-            </div>
-        </div>
+            <hr>
+	    <?php endforeach; ?>
 
     </div> <!-- /container -->
 
-<?php include('partials/header.php'); ?>
+<?php include('partials/footer.php'); ?>

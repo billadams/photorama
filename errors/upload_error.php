@@ -1,4 +1,4 @@
-<?php include('partials/header.php'); ?>
+<?php include( 'views/partials/header.php' ); ?>
 
 <div class='container'>
     <div class="col-md-4 col-md-offset-4">
@@ -13,4 +13,4 @@
     </div>
 </div>
 
-<?php include('partials/footer.php'); ?>
+<?php include( 'views/partials/footer.php' ); ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Jun 06, 2017 at 03:45 AM
+-- Generation Time: Jun 24, 2017 at 05:59 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -19,9 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `photorama`
 --
-CREATE DATABASE IF NOT EXISTS photorama;
 
-USE photorama;
 -- --------------------------------------------------------
 
 --
@@ -53,6 +51,7 @@ CREATE TABLE `images` (
   `image_path` varchar(50) NOT NULL,
   `category_id` int(11) NOT NULL,
   `caption` varchar(50) DEFAULT NULL,
+  `alt_text` varchar(25) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -60,16 +59,18 @@ CREATE TABLE `images` (
 -- Dumping data for table `images`
 --
 
-INSERT INTO `images` (`image_id`, `image_path`, `category_id`, `caption`, `user_id`) VALUES
-(1, 'images/mickey_mouse.jpg', 1, 'Mickey Mouse at Disney World', 46),
-(2, 'images/disney_castle.jpg', 1, 'Disney Castle', 46),
-(3, 'images/osprey_hotel.jpg', 2, 'Osprey Hotel in Colorado', 46),
-(4, 'images/hiking.png', 2, 'Hiking is great exercise', 46),
-(5, 'images/inverted_whip.jpg', 3, 'Whip it good!', 46),
-(6, 'images/liftoff.jpg', 3, 'Lift off!', 46),
-(7, 'images/frozen.jpg', 1, 'Let it go', 47),
-(8, 'images/star_wars_disney.jpg', 1, 'Use the force Luke', 47),
-(9, 'images/rollercoaster.jpg', 1, 'Weeeeee!', 47);
+INSERT INTO `images` (`image_id`, `image_path`, `category_id`, `caption`, `alt_text`, `user_id`) VALUES
+(1, 'images/mickey_mouse.jpg', 1, 'Mickey Mouse at Disney World', 'Mickey Mouse', 46),
+(2, 'images/disney_castle.jpg', 1, 'Disney Castle', 'Disney Castle', 46),
+(3, 'images/osprey_hotel.jpg', 2, 'Osprey Hotel in Colorado', 'Osprey Hotel', 46),
+(4, 'images/hiking.png', 2, 'Hiking is great exercise', 'Colorado Hiking', 46),
+(5, 'images/inverted_whip.jpg', 3, 'Whip it good!', 'Dirtbike Whip', 46),
+(6, 'images/liftoff.jpg', 3, 'Lift off!', 'Dirtbike Jump', 46),
+(7, 'images/frozen.jpg', 1, 'Let it go', 'Frozen Movie', 47),
+(8, 'images/star_wars_disney.jpg', 1, 'Use the force Luke', 'Darth Vader', 47),
+(9, 'images/rollercoaster.jpg', 1, 'Weeeeee!', 'Rollercoaster', 47),
+(12, 'images/motox_kiss1.jpg', 3, 'kiss me ', 'Motox Kiss', 49),
+(13, 'images/larimer_square1.jpg', 2, 'square', 'beautiful', 49);
 
 -- --------------------------------------------------------
 
@@ -92,7 +93,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `profile_image`, `member_since`) VALUES
 (46, 'Triton', 'billadams1977@gmail.com', '$2y$10$84OO/IbHY67iVrl1AXrHdelq.TP/0eusF/zApZGHxgf7LDhWprzxK', 'images/terminator.jpg', '2017-06-03 20:54:02'),
-(47, 'MackDaddy', 'mackdaddy@gmail.com', '$2y$10$6krQFvtOIrAzPtFLGeOsr.CPPu39g/0ydga8xhwTfZAj6EJ1Cla9e', 'images/sirmixalotmackdaddy3.jpg', '2017-06-05 17:21:24');
+(47, 'MackDaddy', 'mackdaddy@gmail.com', '$2y$10$6krQFvtOIrAzPtFLGeOsr.CPPu39g/0ydga8xhwTfZAj6EJ1Cla9e', 'images/sirmixalotmackdaddy3.jpg', '2017-06-05 17:21:24'),
+(49, 'AmyKay', 'akbefort1@gmail.com', '$2y$10$lUCKucSlYpSE6/FIFlLpN.Fid2L4N5OyBosYYm5a8KzbeSozaPeu2', 'images/potty.jpg', '2017-06-06 06:13:26');
 
 --
 -- Indexes for dumped tables
@@ -131,12 +133,12 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
